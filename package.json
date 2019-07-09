@@ -1,0 +1,33 @@
+{
+  "name": "camcal",
+  "version": "0.1.4",
+  "description": "XYZ Shifter for sprayer calibration",
+  "license": "MIT",
+  "homepage": "./",
+  "main": "main.js",
+  "author": "hingobway",
+  "scripts": {
+    "dev": "nodemon --exec \"electron main.js\" -i src/",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "org.bowen.camcal",
+    "productName": "CAMCAL Calibration Software",
+    "files": [
+      "*",
+      "src/**/*",
+      "node/**/*"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^5.0.6",
+    "electron-builder": "^20.44.4",
+    "electron-rebuild": "^1.8.5",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "electron-is-dev": "^1.1.0",
+    "johnny-five": "^1.1.0"
+  }
+}
