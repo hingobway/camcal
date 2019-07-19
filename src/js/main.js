@@ -1,8 +1,9 @@
 const electron = require('electron');
-const { Menu } = electron.remote;
 const ipc = electron.ipcRenderer;
 
 const isDev = require('electron-is-dev');
+const Vue = require('../node_modules/vue/dist/vue' +
+  (isDev ? '.js' : '.min.js'));
 
 function sizer() {
   const ratio = window.innerHeight / window.innerWidth;
@@ -17,6 +18,16 @@ function sizer() {
 }
 window.addEventListener('resize', sizer, false);
 
+// CREATE INIT CONFIG
+if (!localStorage.getItem('config')) {
+  alert('The application needs initial configuration.');
+  ipc.send('config');
+}
+
+// VARS
+let lastPress = 0;
+
+// VUE
 const app = new Vue({
   el: '#app',
   data: {
@@ -69,6 +80,32 @@ const app = new Vue({
         }));
     });
 
+    /**
+     * KEY BINDINGS
+     *
+     * Hit an arrow to step in that direction.
+     * Two or more keydown events less than 80ms apart (e.g.
+     *   holding down key) will trigger continuous motion until
+     *   a keyup event is registered.
+     */
+    document.onkeyup = e => {
+      if (e.key.match(/Arrow/)) {
+        const dir = e.key.match(/Arrow(\w+)/)[1].toLowerCase();
+        ipc.send('step', dir);
+        ipc.send('stop');
+      }
+    };
+    document.onkeydown = e => {
+      if (e.key.match(/Arrow/)) {
+        const dir = e.key.match(/Arrow(\w+)/)[1].toLowerCase();
+        const time = new Date().getTime();
+        if (time - lastPress < 80) {
+          ipc.send('cont', dir);
+        }
+        lastPress = time;
+      }
+    };
+
     ipc.on('status', (e, msg) => {
       switch (msg) {
         case 'ready':
@@ -105,31 +142,5 @@ const deviceSwitch = (dir, id) => {
 app.$watch('deviceH', id => deviceSwitch(0, id));
 app.$watch('deviceV', id => deviceSwitch(1, id));
 
-const win = electron.remote.getCurrentWindow();
-document.addEventListener('keyup', e => {
-  if (e.key === 'Escape') win.setFullScreen(false);
-});
-
-window.addEventListener(
-  'contextmenu',
-  e => {
-    e.preventDefault();
-    Menu.buildFromTemplate([
-      (fs => ({
-        label: (fs ? 'Exit' : 'Go') + ' Fullscreen',
-        icon: `./src/assets/fullscreen_${fs ? 'close' : 'open'}.png`,
-        click() {
-          win.setFullScreen(!fs);
-        }
-      }))(win.isFullScreen()),
-      { type: 'separator' },
-      {
-        label: 'Help...',
-        click() {
-          electron.shell.openExternal('https://h-n.me');
-        }
-      }
-    ]).popup();
-  },
-  false
-);
+// WebContents code not functionally relavant to the main app window.
+require('./js/locals');

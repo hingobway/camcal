@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="stylesheet" href="./css/all.css" />
+    <style>
+      .container {
+        align-items: center;
+        justify-content: center;
+
+        opacity: 1;
+        transition: opacity 1s;
+      }
+
+      .container > * {
+        margin: 15px;
+      }
+
+      h1 {
+        font-weight: 900;
+      }
+
+      .spinner {
+        border: 5px solid var(--action);
+        border-top: 5px solid var(--fg);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 9s ease infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        11.111% {
+          transform: rotate(400deg);
+        }
+        22.222% {
+          transform: rotate(800deg);
+        }
+        33.333% {
+          transform: rotate(1200deg);
+        }
+        44.444% {
+          transform: rotate(1600deg);
+        }
+        55.555% {
+          transform: rotate(2000deg);
+        }
+        66.666% {
+          transform: rotate(2400deg);
+        }
+        77.777% {
+          transform: rotate(2800deg);
+        }
+        88.888% {
+          transform: rotate(3200deg);
+        }
+        100% {
+          transform: rotate(3600deg);
+        }
+      }
+
+      .bye {
+        opacity: 0;
+      }
+    </style>
+
+    <script>
+      const { remote } = require('electron');
+
+      window.onbeforeunload = e => {
+        e.returnValue = false;
+        document.querySelector('.container').classList.add('bye');
+        setTimeout(() => remote.getCurrentWindow().destroy(), 1000);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CAMCAL</h1>
+      <div class="spin-out">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </body>
+</html>

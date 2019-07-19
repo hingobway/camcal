@@ -1,5 +1,5 @@
 const electron = require('electron');
-const { app } = electron;
+const { app, BrowserWindow } = electron;
 
 app.on('ready', async () => {
   process.stdout.write('Starting...  ');

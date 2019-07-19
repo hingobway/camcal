@@ -1,6 +1,6 @@
 {
   "name": "camcal",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "XYZ Shifter for sprayer calibration",
   "license": "MIT",
   "homepage": "./",
@@ -15,19 +15,18 @@
     "appId": "org.bowen.camcal",
     "productName": "CAMCAL Calibration Software",
     "files": [
-      "*",
-      "src/**/*",
-      "node/**/*"
+      "!model.xcf"
     ]
   },
   "devDependencies": {
     "electron": "^5.0.6",
-    "electron-builder": "^20.44.4",
+    "electron-builder": "^21.1.1",
     "electron-rebuild": "^1.8.5",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
     "electron-is-dev": "^1.1.0",
-    "johnny-five": "^1.1.0"
+    "johnny-five": "^1.1.0",
+    "vue": "^2.6.10"
   }
 }

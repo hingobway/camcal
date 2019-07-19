@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="./css/all.css" />
+    <link rel="stylesheet" href="./css/main.css" />
 
-    <script src="https://vuejs.org/js/vue.js"></script>
   </head>
   <body>
     <div id="app" class="container">
@@ -80,8 +80,8 @@
           </div>
         </main>
         <footer>
-          <div id="release" class="click action" @click="handleRelease">
-            <p>RELEASE</p>
+          <div id="release" class="click" @click="handleRelease">
+            <p class="click action">RELEASE</p>
           </div>
           <div id="status" :title="status.tip">
             <p>
@@ -97,6 +97,6 @@
       </div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="./js/main.js"></script>
   </body>
 </html>

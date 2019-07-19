@@ -13,8 +13,6 @@ const modes = {
 };
 
 // PRIVATE
-const exp = new events.EventEmitter();
-
 let coil;
 
 /**
@@ -89,6 +87,12 @@ class Stepper extends events {
       })
     ];
     this.h.state = 0;
+
+    j5.Pin({
+      pin: 8,
+      mode: modes.INPUT,
+      board: board.board
+    }).read((_, v) => console.log(v));
   }
 
   watchState(nv) {
@@ -99,38 +103,38 @@ class Stepper extends events {
     switch (nv) {
       case 0:
         // 1+2+3+4 OFF
-        coil[1].high();
-        coil[2].high();
-        coil[3].high();
-        coil[4].high();
+        coil[1].low();
+        coil[2].low();
+        coil[3].low();
+        coil[4].low();
         break;
       case 1:
         // 1+3 ON, 2+4 OFF
-        coil[1].low();
-        coil[3].low();
-        coil[2].high();
-        coil[4].high();
+        coil[1].high();
+        coil[3].high();
+        coil[2].low();
+        coil[4].low();
         break;
       case 2:
         // 2+3 ON, 1+4 OFF
-        coil[2].low();
-        coil[3].low();
-        coil[1].high();
-        coil[4].high();
+        coil[2].high();
+        coil[3].high();
+        coil[1].low();
+        coil[4].low();
         break;
       case 3:
         // 2+4 ON, 1+3 OFF
-        coil[2].low();
-        coil[4].low();
-        coil[1].high();
-        coil[3].high();
+        coil[2].high();
+        coil[4].high();
+        coil[1].low();
+        coil[3].low();
         break;
       case 4:
         // 1+4 ON, 2+3 OFF
-        coil[1].low();
-        coil[4].low();
-        coil[2].high();
-        coil[3].high();
+        coil[1].high();
+        coil[4].high();
+        coil[2].low();
+        coil[3].low();
         break;
     }
   }

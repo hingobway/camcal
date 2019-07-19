@@ -3,16 +3,21 @@ const electron = require('electron');
 const ipc = electron.ipcMain;
 const { BrowserWindow } = electron;
 
-const { win } = require('./UI');
+const { win, config } = require('./UI');
 const board = require('./board');
 const Stepper = require('./Stepper');
-let stp1;
+const stp = [];
+
+const conf = () =>
+  new Promise(r =>
+    win.webContents
+      .executeJavaScript(`localStorage.getItem('config')`)
+      .then(v => r(JSON.parse(v)))
+  );
 
 ipc.on('devtools', () => win.webContents.openDevTools());
 ipc.on('minimize', () => win.minimize());
 ipc.on('close', () => win.close());
-
-ipc.on('store-ready', ({ sender }) => require('./store')(sender));
 
 /**
  * Renderer Event Handling
@@ -20,9 +25,9 @@ ipc.on('store-ready', ({ sender }) => require('./store')(sender));
 ipc.on('connect', async e => {
   // Connect to board, but timeout after 10 seconds.
   let done = false;
-  const init = () => {
+  const init = async () => {
     done = true;
-    stp1 = new Stepper({ id: 1, pins: [2, 3, 13, 5] });
+    stp.push(new Stepper({ id: 1, pins: (await conf()).pins[0] }));
     e.sender.send('status', 'ready');
   };
   const b = await board();
@@ -34,19 +39,37 @@ ipc.on('connect', async e => {
   }, 10 * 1000);
 });
 
-ipc.on('step', (e, dir) => {
-  if (!stp1) return;
-  switch (dir) {
-    case 'left':
-      stp1.step(true);
-      break;
-    case 'right':
-      stp1.step(false);
-      break;
-  }
+ipc.on('config', () => {
+  const { win } = new config();
+});
+
+// MOTOR MOVEMENT FUNCTIONS
+let spin = [];
+ipc.on('cont', async (e, dir) => {
+  if (!stp.length) return;
+  if (spin.length > 0) return;
+
+  dir = dir === 'left' ? true : dir === 'right' ? false : undefined;
+  spin.push(
+    setInterval(
+      () => stp[0].step(dir),
+      1000 / ((await conf()).stepsPerSecond || 125)
+    )
+  );
+});
+ipc.on('stop', e => {
+  spin.forEach(cur => clearInterval(cur));
+  spin = [];
+});
+
+ipc.on('step', async (e, dir) => {
+  if (!stp.length || spin.length) return;
+  dir = dir === 'left' ? true : dir === 'right' ? false : undefined;
+
+  for (i = 0; i < ((await conf()).tapSteps || 10); i++) stp[0].step(dir);
 });
 
 ipc.on('release', e => {
-  if (!stp1) return;
-  stp1.off();
+  if (!stp[0]) return;
+  stp[0].off();
 });
