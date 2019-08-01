@@ -1,4 +1,5 @@
 const electron = require('electron');
+// const { Menu } = electron.remote;
 const ipc = electron.ipcRenderer;
 
 const isDev = require('electron-is-dev');
@@ -34,6 +35,8 @@ const app = new Vue({
     sources: [],
     deviceH: '',
     deviceV: '',
+    zoomH: 1,
+    zoomV: 1,
 
     status: {
       action: 'connect',
@@ -79,6 +82,59 @@ const app = new Vue({
           name: device.label
         }));
     });
+
+    // Draggable Videos
+    const draggable = el => {
+      let start = [0, 0];
+
+      const handleMouseDown = e => {
+        e.preventDefault();
+        start = [e.clientX, e.clientY];
+
+        el.style.cursor = 'grabbing';
+
+        el.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleEnd);
+      };
+      const handleMouseMove = e => {
+        const diff = [start[0] - e.clientX, start[1] - e.clientY];
+        start = [e.clientX, e.clientY];
+
+        el.style.left = el.offsetLeft - diff[0] + 'px';
+        el.style.top = el.offsetTop - diff[1] + 'px';
+      };
+
+      const handleEnd = e => {
+        el.removeEventListener('mousemove', handleMouseMove);
+        el.style.cursor = null;
+
+        document.removeEventListener('mouseup', handleEnd);
+      };
+
+      el.addEventListener('mousedown', handleMouseDown);
+
+      el.addEventListener('dblclick', () => {
+        el.style.left = 0;
+        el.style.top = 0;
+        const selector = el.classList.contains('horiz') ? 'H' : 'V';
+        app['zoom' + selector] = 1;
+      });
+      // el.addEventListener('contextmenu', e => {
+      //   e.preventDefault();
+
+      //   Menu.buildFromTemplate([
+      //     {
+      //       label: 'Reset Pan & Zoom',
+      //       sublabel: 'Next time, just double click.',
+      //       click() {
+      //         el.dispatchEvent('dblclick');
+      //       }
+      //     }
+      //   ]).popup();
+      // });
+    };
+    draggable(document.querySelector('video.horiz'));
+    draggable(document.querySelector('video.vert'));
 
     /**
      * KEY BINDINGS
@@ -141,6 +197,13 @@ const deviceSwitch = (dir, id) => {
 };
 app.$watch('deviceH', id => deviceSwitch(0, id));
 app.$watch('deviceV', id => deviceSwitch(1, id));
+
+const setZoom = (dir, val) => {
+  let el = document.querySelector('.cam.' + ['horiz', 'vert'][dir]);
+  el.style.transform = `scale(${((val - 1) * (10 - 1)) / (1000 - 1) + 1})`;
+};
+app.$watch('zoomH', v => setZoom(0, v));
+app.$watch('zoomV', v => setZoom(1, v));
 
 // WebContents code not functionally relavant to the main app window.
 require('./js/locals');

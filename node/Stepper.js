@@ -88,11 +88,11 @@ class Stepper extends events {
     ];
     this.h.state = 0;
 
-    j5.Pin({
-      pin: 8,
-      mode: modes.INPUT,
-      board: board.board
-    }).read((_, v) => console.log(v));
+    // j5.Pin({
+    //   pin: 8,
+    //   mode: modes.INPUT,
+    //   board: board.board
+    // }).read((_, v) => console.log(v));
   }
 
   watchState(nv) {
