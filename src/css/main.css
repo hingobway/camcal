@@ -7,6 +7,9 @@
   align-items: stretch;
   justify-content: stretch;
 }
+.bpoint.hidden {
+  display: none;
+}
 
 main {
   flex: 1;
@@ -166,8 +169,8 @@ input.zoom::-webkit-slider-thumb {
   padding-bottom: 8px;
 
   border-radius: 1000px;
-  background: #d5d0bf;
-  box-shadow: inset 0 0 2px hsla(0, 0%, 0%, 0.06);
+  background: var(--bg-dark);
+  box-shadow: 0 3px 3px -2px hsla(0, 0%, 0%, 0.18);
 }
 .nav .arrow {
   width: var(--btn-width);
@@ -185,11 +188,11 @@ input.zoom::-webkit-slider-thumb {
   filter: drop-shadow(0px 0px 5px hsla(0, 0%, 0%, 0.4));
 }
 .nav .arrow.up {
-  margin-right: var(--arrow-d);
-  transform: rotate(180deg);
+  margin-left: var(--arrow-d);
 }
 .nav .arrow.dn {
-  margin-left: var(--arrow-d);
+  margin-right: var(--arrow-d);
+  transform: rotate(180deg);
 }
 .nav .arrow.lt {
   margin-right: var(--arrow-d);

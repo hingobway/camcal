@@ -4,6 +4,8 @@ const isDev = require('electron-is-dev');
 
 const { BrowserWindow, Menu } = require('electron');
 
+const file = rel => path.join(__dirname, rel);
+
 const ev = new events.EventEmitter();
 module.exports = () => new Promise(r => ev.once('ready', r));
 
@@ -16,12 +18,14 @@ const load = new BrowserWindow({
   show: false,
   backgroundColor: '#e8e4d5',
   title: 'CAMCAL',
+  icon: file('../src/assets/icons/camcal.ico'),
+
   webPreferences: {
     nodeIntegration: true
   }
 });
 load.removeMenu();
-load.loadFile(path.resolve(__dirname + '/../src/load.html'));
+load.loadFile(file('../src/load.html'));
 load.on('ready-to-show', () => load.show());
 load.shown = false;
 
@@ -37,7 +41,7 @@ const win = (module.exports.win = new BrowserWindow({
   autoHideMenuBar: true,
   title: 'CAMCAL',
   backgroundColor: '#e8e4d5',
-  // icon: path.resolve(__dirname + '/../public/assets/img/logo_64x64.png'),
+  icon: file('../src/assets/icons/camcal.ico'),
   webPreferences: {
     nodeIntegration: true
   }
@@ -56,7 +60,7 @@ if (isDev) {
     ])
   );
 } else win.removeMenu();
-win.loadFile(path.resolve(__dirname + '/../src/main.html'));
+win.loadFile(file('../src/main.html'));
 
 // Keep loading screen visible until app is ready AND at least 1.25 seconds have passed (for looks).
 const show = () => {
@@ -94,7 +98,7 @@ function Config() {
     }
   });
   config.removeMenu();
-  config.loadFile(path.resolve(__dirname + '/../src/configure.html'));
+  config.loadFile(file('../src/configure.html'));
   config.on('ready-to-show', () => config.show());
 }
 module.exports.config = Config;

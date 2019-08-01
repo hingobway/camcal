@@ -1,6 +1,6 @@
 {
   "name": "camcal",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "XYZ Shifter for sprayer calibration",
   "license": "MIT",
   "homepage": "./",
@@ -8,6 +8,7 @@
   "author": "hingobway",
   "scripts": {
     "dev": "nodemon --exec \"electron main.js\" -i src/",
+    "start": "node electron.prod",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },

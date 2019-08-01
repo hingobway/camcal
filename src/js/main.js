@@ -1,5 +1,6 @@
 const electron = require('electron');
-// const { Menu } = electron.remote;
+const { remote } = electron;
+const { dialog } = remote;
 const ipc = electron.ipcRenderer;
 
 const isDev = require('electron-is-dev');
@@ -21,9 +22,13 @@ window.addEventListener('resize', sizer, false);
 
 // CREATE INIT CONFIG
 if (!localStorage.getItem('config')) {
-  alert('The application needs initial configuration.');
+  dialog.showMessageBox(remote.getCurrentWindow(), {
+    detail: 'The application needs initial configuration.',
+    title: 'CAMCAL'
+  });
   ipc.send('config');
 }
+document.querySelector('.bpoint').style.display = null;
 
 // VARS
 let lastPress = 0;
@@ -66,24 +71,6 @@ const app = new Vue({
             type: 'loading'
           };
           ipc.send('connect');
-          break;
-      }
-    },
-    handleClick(e) {
-      const el = e.currentTarget;
-      const dir = el.classList[1];
-      switch (dir) {
-        case 'lt':
-          ipc.send('step', 'left');
-          break;
-        case 'rt':
-          ipc.send('step', 'right');
-          break;
-        case 'up':
-          ipc.send('step', 'up');
-          break;
-        case 'dn':
-          ipc.send('step', 'down');
           break;
       }
     },
@@ -138,22 +125,39 @@ const app = new Vue({
         const selector = el.classList.contains('horiz') ? 'H' : 'V';
         app['zoom' + selector] = 1;
       });
-      // el.addEventListener('contextmenu', e => {
-      //   e.preventDefault();
-
-      //   Menu.buildFromTemplate([
-      //     {
-      //       label: 'Reset Pan & Zoom',
-      //       sublabel: 'Next time, just double click.',
-      //       click() {
-      //         el.dispatchEvent('dblclick');
-      //       }
-      //     }
-      //   ]).popup();
-      // });
     };
     draggable(document.querySelector('video.horiz'));
     draggable(document.querySelector('video.vert'));
+
+    /**
+     * ARROW BUTTONS
+     *
+     * Click an arrow to move in that direction. Hold it down for
+     *   more than 600ms to trigger continuous motion until
+     *   you let go.
+     */
+    const getDir = el => {
+      const dir = el.classList.item(1);
+      if (dir === 'lt') return 'left';
+      if (dir === 'rt') return 'right';
+      if (dir === 'up') return 'up';
+      if (dir === 'dn') return 'down';
+    };
+    document.querySelectorAll('.arrow').forEach(el => {
+      el.addEventListener('mousedown', e => {
+        const wait = setTimeout(() => {
+          el.onmouseup = null;
+
+          ipc.send('cont', getDir(el));
+        }, 600);
+        el.onmouseup = () => {
+          clearTimeout(wait);
+          el.onmouseup = null;
+        };
+      });
+      el.addEventListener('mouseup', e => ipc.send('step', getDir(el)));
+    });
+    document.addEventListener('mouseup', () => ipc.send('stop'));
 
     /**
      * KEY BINDINGS
@@ -200,7 +204,7 @@ const app = new Vue({
       }
     });
     ipc.on('motor', (_, motor, val) => {
-      const nm = app.motors;
+      const nm = Object.assign({}, app.motors);
       nm[motor] = val;
       app.motors = nm;
     });
