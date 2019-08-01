@@ -9,7 +9,7 @@ const Vue = require('../node_modules/vue/dist/vue' +
 function sizer() {
   const ratio = window.innerHeight / window.innerWidth;
   const bpoint = document.querySelector('.bpoint');
-  const best = 0.5207;
+  const best = 0.515;
   if (ratio < best) {
     bpoint.style.width =
       Math.round(window.innerHeight * Math.pow(best, -1)) + 'px';
@@ -32,6 +32,7 @@ let lastPress = 0;
 const app = new Vue({
   el: '#app',
   data: {
+    motors: [false, false, false, false],
     sources: [],
     deviceH: '',
     deviceV: '',
@@ -42,6 +43,18 @@ const app = new Vue({
       action: 'connect',
       msg: 'Click to Connect',
       type: 'action'
+    }
+  },
+  computed: {
+    systemOn() {
+      let out = false;
+      for (i in this.motors) {
+        if (this.motors[i]) {
+          out = true;
+          break;
+        }
+      }
+      return out;
     }
   },
   methods: {
@@ -65,6 +78,12 @@ const app = new Vue({
           break;
         case 'rt':
           ipc.send('step', 'right');
+          break;
+        case 'up':
+          ipc.send('step', 'up');
+          break;
+        case 'dn':
+          ipc.send('step', 'down');
           break;
       }
     },
@@ -162,7 +181,7 @@ const app = new Vue({
       }
     };
 
-    ipc.on('status', (e, msg) => {
+    ipc.on('status', (_, msg) => {
       switch (msg) {
         case 'ready':
           app.status = {
@@ -179,6 +198,11 @@ const app = new Vue({
           };
           break;
       }
+    });
+    ipc.on('motor', (_, motor, val) => {
+      const nm = app.motors;
+      nm[motor] = val;
+      app.motors = nm;
     });
   }
 });

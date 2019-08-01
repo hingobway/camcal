@@ -28,6 +28,9 @@ ipc.on('connect', async e => {
   const init = async () => {
     done = true;
     stp.push(new Stepper({ id: 1, pins: (await conf()).pins[0] }));
+    stp.forEach((motor, i) =>
+      motor.on('change', stage => e.sender.send('motor', i, stage ? !!1 : !!0))
+    );
     e.sender.send('status', 'ready');
   };
   const b = await board();
@@ -49,7 +52,7 @@ ipc.on('cont', async (e, dir) => {
   if (!stp.length) return;
   if (spin.length > 0) return;
 
-  dir = dir === 'left' ? true : dir === 'right' ? false : undefined;
+  dir = dir === 'down' ? true : dir === 'up' ? false : undefined;
   spin.push(
     setInterval(
       () => stp[0].step(dir),
@@ -64,7 +67,7 @@ ipc.on('stop', e => {
 
 ipc.on('step', async (e, dir) => {
   if (!stp.length || spin.length) return;
-  dir = dir === 'left' ? true : dir === 'right' ? false : undefined;
+  dir = dir === 'down' ? true : dir === 'up' ? false : undefined;
 
   for (i = 0; i < ((await conf()).tapSteps || 10); i++) stp[0].step(dir);
 });

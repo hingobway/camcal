@@ -99,6 +99,7 @@ class Stepper extends events {
     if (!board.ready) return;
 
     console.log(`MTR-${this.id} STATE`, nv);
+    this.emit('change', nv);
 
     switch (nv) {
       case 0:

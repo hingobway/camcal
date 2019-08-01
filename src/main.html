@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
+    <link rel="stylesheet" href="./styles/fonts.css" />
+
     <link rel="stylesheet" href="./styles/all.css" />
     <link rel="stylesheet" href="./styles/main.css" />
   </head>
@@ -39,16 +41,14 @@
             </div>
             <div class="nav">
               <div class="inner">
-                <svg class="arrow lt" viewBox="0 0 24 24" @click="handleClick">
-                  <path fill="none" d="M0 0h24v24H0V0z" />
+                <svg class="arrow lt" viewBox="0 0 42 40" @click="handleClick">
                   <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13l-4-4h8l-4 4z"
+                    d="M18.409,4.442a3,3,0,0,1,5.183,0L39.368,31.488A3,3,0,0,1,36.777,36H5.223a3,3,0,0,1-2.591-4.512Z"
                   />
                 </svg>
-                <svg class="arrow rt" viewBox="0 0 24 24" @click="handleClick">
-                  <path fill="none" d="M0 0h24v24H0V0z" />
+                <svg class="arrow rt" viewBox="0 0 42 40" @click="handleClick">
                   <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13l-4-4h8l-4 4z"
+                    d="M18.409,4.442a3,3,0,0,1,5.183,0L39.368,31.488A3,3,0,0,1,36.777,36H5.223a3,3,0,0,1-2.591-4.512Z"
                   />
                 </svg>
               </div>
@@ -80,16 +80,14 @@
             </div>
             <div class="nav">
               <div class="inner">
-                <svg class="arrow up" viewBox="0 0 24 24" @click="handleClick">
-                  <path fill="none" d="M0 0h24v24H0V0z" />
+                <svg class="arrow up" viewBox="0 0 42 40" @click="handleClick">
                   <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13l-4-4h8l-4 4z"
+                    d="M18.409,4.442a3,3,0,0,1,5.183,0L39.368,31.488A3,3,0,0,1,36.777,36H5.223a3,3,0,0,1-2.591-4.512Z"
                   />
                 </svg>
-                <svg class="arrow dn" viewBox="0 0 24 24" @click="handleClick">
-                  <path fill="none" d="M0 0h24v24H0V0z" />
+                <svg class="arrow dn" viewBox="0 0 42 40" @click="handleClick">
                   <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13l-4-4h8l-4 4z"
+                    d="M18.409,4.442a3,3,0,0,1,5.183,0L39.368,31.488A3,3,0,0,1,36.777,36H5.223a3,3,0,0,1-2.591-4.512Z"
                   />
                 </svg>
               </div>
@@ -97,7 +95,11 @@
           </div>
         </main>
         <footer>
-          <div id="release" class="click" @click="handleRelease">
+          <div
+            id="release"
+            :class="systemOn?'click':'disabled'"
+            @click="handleRelease"
+          >
             <p class="click action">RELEASE</p>
           </div>
           <div id="status" :title="status.tip">
