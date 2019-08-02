@@ -1,7 +1,6 @@
 const electron = require('electron');
 
 const ipc = electron.ipcMain;
-const { BrowserWindow } = electron;
 
 const { win, config } = require('./UI');
 const board = require('./board');
