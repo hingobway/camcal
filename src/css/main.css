@@ -262,6 +262,22 @@ footer span {
   font-weight: 600 !important;
 }
 
+svg.help {
+  width: 40px;
+  height: 40px;
+  fill: var(--fg);
+}
+
+div#help {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  padding: 0 !important;
+  position: absolute;
+  left: 50%;
+  margin-left: -20px;
+}
+
 .good {
   color: var(--good) !important;
 }
@@ -277,4 +293,5 @@ footer span {
 }
 .click {
   cursor: pointer !important;
+  font-weight: 700 !important;
 }

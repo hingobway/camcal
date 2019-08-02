@@ -33,7 +33,7 @@ load.shown = false;
  * MAIN WINDOW
  */
 const win = (module.exports.win = new BrowserWindow({
-  width: 1000,
+  width: 1084,
   height: 600,
   minWidth: 992,
   minHeight: 600,

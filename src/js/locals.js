@@ -36,7 +36,7 @@ window.addEventListener(
       {
         label: 'Help...',
         click() {
-          shell.openExternal('https://h-n.me');
+          shell.openExternal('https://www.hingobway.me/camcal/');
         }
       }
     ]).popup();

@@ -1,5 +1,5 @@
 const electron = require('electron');
-const { remote } = electron;
+const { shell, remote } = electron;
 const { dialog } = remote;
 const ipc = electron.ipcRenderer;
 
@@ -76,6 +76,9 @@ const app = new Vue({
     },
     handleRelease(e) {
       ipc.send('release');
+    },
+    handleHelp(e) {
+      shell.openExternal('https://www.hingobway.me/camcal/');
     }
   },
   mounted: () => {
@@ -88,6 +91,10 @@ const app = new Vue({
           name: device.label
         }));
     });
+    let savedDeviceH = localStorage.getItem('deviceH');
+    let savedDeviceV = localStorage.getItem('deviceV');
+    if (savedDeviceH) this.deviceH = savedDeviceH;
+    if (savedDeviceV) this.deviceV = savedDeviceV;
 
     // Draggable Videos
     const draggable = el => {
@@ -212,6 +219,7 @@ const app = new Vue({
 });
 
 const deviceSwitch = (dir, id) => {
+  localStorage.setItem('device' + ['H', 'V'][dir], id);
   let vel = document.querySelector('.cam.' + ['horiz', 'vert'][dir]);
   navigator.mediaDevices
     .getUserMedia({ video: { deviceId: { exact: id } } })
