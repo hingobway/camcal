@@ -1,7 +1,7 @@
 {
   "name": "camcal",
-  "productName": "CAMCAL Configuration Software",
-  "version": "0.2.2",
+  "productName": "CAMCAL Calibration Software",
+  "version": "0.2.4",
   "description": "XYZ Shifter for sprayer calibration",
   "license": "MIT",
   "homepage": "./",
