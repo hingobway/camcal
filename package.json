@@ -1,6 +1,7 @@
 {
   "name": "camcal",
-  "version": "0.2.0",
+  "productName": "CAMCAL Configuration Software",
+  "version": "0.2.2",
   "description": "XYZ Shifter for sprayer calibration",
   "license": "MIT",
   "homepage": "./",
@@ -9,19 +10,17 @@
   "scripts": {
     "dev": "nodemon --exec \"electron main.js\" -i src/",
     "start": "node electron.prod",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "pack": "electron-forge package",
+    "dist": "electron-forge make",
+    "postinstall": "electron-rebuild"
   },
-  "build": {
-    "appId": "org.bowen.camcal",
-    "productName": "CAMCAL Calibration Software",
-    "files": [
-      "!model.xcf"
-    ]
+  "config": {
+    "forge": "./forge.config.js"
   },
   "devDependencies": {
-    "electron": "^5.0.6",
-    "electron-builder": "^21.1.1",
+    "@electron-forge/cli": "6.0.0-beta.43",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.43",
+    "electron": "5.0.8",
     "electron-rebuild": "^1.8.5",
     "gulp": "^4.0.2",
     "gulp-postcss": "^8.0.0",
@@ -30,6 +29,7 @@
   },
   "dependencies": {
     "electron-is-dev": "^1.1.0",
+    "electron-squirrel-startup": "^1.0.0",
     "johnny-five": "^1.1.0",
     "vue": "^2.6.10"
   }

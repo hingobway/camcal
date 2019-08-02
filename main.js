@@ -1,5 +1,7 @@
 const electron = require('electron');
-const { app, BrowserWindow } = electron;
+const { app } = electron;
+
+if (require('electron-squirrel-startup')) app.quit();
 
 app.on('ready', async () => {
   process.stdout.write('Starting...  ');
