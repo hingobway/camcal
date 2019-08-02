@@ -20,6 +20,20 @@ function sizer() {
 }
 window.addEventListener('resize', sizer, false);
 
+const deviceSwitch = (dir, id) => {
+  localStorage.setItem('device' + ['H', 'V'][dir], id);
+  let vel = document.querySelector('.cam.' + ['horiz', 'vert'][dir]);
+  navigator.mediaDevices
+    .getUserMedia({ video: { deviceId: { exact: id } } })
+    .then(stream => {
+      vel.srcObject = stream;
+    })
+    .catch(err => {
+      console.log(err);
+      vel.srcObject = undefined;
+    });
+};
+
 // CREATE INIT CONFIG
 if (!localStorage.getItem('config')) {
   dialog.showMessageBox(remote.getCurrentWindow(), {
@@ -39,8 +53,8 @@ const app = new Vue({
   data: {
     motors: [false, false, false, false],
     sources: [],
-    deviceH: '',
-    deviceV: '',
+    deviceH: localStorage.getItem('deviceH') || '',
+    deviceV: localStorage.getItem('deviceV') || '',
     zoomH: 1,
     zoomV: 1,
 
@@ -81,7 +95,7 @@ const app = new Vue({
       shell.openExternal('https://www.hingobway.me/camcal/');
     }
   },
-  mounted: () => {
+  mounted() {
     sizer();
     navigator.mediaDevices.enumerateDevices().then(devices => {
       app.sources = devices
@@ -91,10 +105,6 @@ const app = new Vue({
           name: device.label
         }));
     });
-    let savedDeviceH = localStorage.getItem('deviceH');
-    let savedDeviceV = localStorage.getItem('deviceV');
-    if (savedDeviceH) this.deviceH = savedDeviceH;
-    if (savedDeviceV) this.deviceV = savedDeviceV;
 
     // Draggable Videos
     const draggable = el => {
@@ -215,22 +225,12 @@ const app = new Vue({
       nm[motor] = val;
       app.motors = nm;
     });
+
+    if (this.deviceH) deviceSwitch(0, this.deviceH);
+    if (this.deviceV) deviceSwitch(1, this.deviceV);
   }
 });
 
-const deviceSwitch = (dir, id) => {
-  localStorage.setItem('device' + ['H', 'V'][dir], id);
-  let vel = document.querySelector('.cam.' + ['horiz', 'vert'][dir]);
-  navigator.mediaDevices
-    .getUserMedia({ video: { deviceId: { exact: id } } })
-    .then(stream => {
-      vel.srcObject = stream;
-    })
-    .catch(err => {
-      console.log(err);
-      vel.srcObject = undefined;
-    });
-};
 app.$watch('deviceH', id => deviceSwitch(0, id));
 app.$watch('deviceV', id => deviceSwitch(1, id));
 
