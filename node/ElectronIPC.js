@@ -8,11 +8,9 @@ const board = require('./board');
 const Stepper = require('./Stepper');
 const stp = [];
 
-const conf = () =>
-  new Promise(r =>
-    win.webContents
-      .executeJavaScript(`localStorage.getItem('config')`)
-      .then(v => r(JSON.parse(v)))
+const conf = async () =>
+  JSON.parse(
+    await win.webContents.executeJavaScript(`localStorage.getItem('config')`)
   );
 
 ipc.on('devtools', () => win.webContents.openDevTools());
