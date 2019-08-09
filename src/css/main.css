@@ -148,6 +148,12 @@ input.zoom::-webkit-slider-thumb {
   background: #fffbeb;
   cursor: zoom-in;
 }
+.rotate {
+  width: 24px;
+  fill: var(--bg);
+  margin: 4px;
+  margin-right: 5px;
+}
 
 .nav {
   flex: 1;

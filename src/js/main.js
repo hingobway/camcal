@@ -57,6 +57,8 @@ const app = new Vue({
     deviceV: localStorage.getItem('deviceV') || '',
     zoomH: 1,
     zoomV: 1,
+    rotateH: 0,
+    rotateV: 0,
 
     status: {
       action: 'connect',
@@ -93,6 +95,12 @@ const app = new Vue({
     },
     handleHelp(e) {
       shell.openExternal('https://www.hingobway.me/camcal/');
+    },
+    handleRotate(e) {
+      const dir = e.currentTarget.classList.contains('horiz') ? 'H' : 'V';
+      const val = this['rotate' + dir];
+      const nv = val >= 270 ? 0 : val + 90;
+      this['rotate' + dir] = nv;
     }
   },
   mounted() {
@@ -141,6 +149,7 @@ const app = new Vue({
         el.style.top = 0;
         const selector = el.classList.contains('horiz') ? 'H' : 'V';
         app['zoom' + selector] = 1;
+        app['rotate' + selector] = 0;
       });
     };
     draggable(document.querySelector('video.horiz'));
@@ -234,12 +243,17 @@ const app = new Vue({
 app.$watch('deviceH', id => deviceSwitch(0, id));
 app.$watch('deviceV', id => deviceSwitch(1, id));
 
-const setZoom = (dir, val) => {
-  let el = document.querySelector('.cam.' + ['horiz', 'vert'][dir]);
-  el.style.transform = `scale(${((val - 1) * (10 - 1)) / (1000 - 1) + 1})`;
+const setZoom = dir => {
+  const el = document.querySelector('.cam.' + ['horiz', 'vert'][dir]);
+  const prefix = dir ? 'V' : 'H';
+  const scale = ((app['zoom' + prefix] - 1) * (10 - 1)) / (1000 - 1) + 1;
+  const rotate = app['rotate' + prefix];
+  el.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
 };
-app.$watch('zoomH', v => setZoom(0, v));
-app.$watch('zoomV', v => setZoom(1, v));
+app.$watch('zoomH', () => setZoom(0));
+app.$watch('zoomV', () => setZoom(1));
+app.$watch('rotateH', () => setZoom(0));
+app.$watch('rotateV', () => setZoom(1));
 
 // WebContents code not functionally relavant to the main app window.
 require('./js/locals');

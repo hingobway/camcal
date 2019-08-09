@@ -80,26 +80,33 @@ win.on('ready-to-show', () => {
  */
 let config;
 function Config() {
-  config = this.win = new BrowserWindow({
-    modal: true,
-    parent: win,
+  if (config) {
+    this.win = config;
+    config.show();
+  } else {
+    config = this.win = new BrowserWindow({
+      // modal: true,
+      // parent: win,
 
-    width: 450,
-    height: 350,
-    resizable: false,
+      width: 450,
+      height: 350,
+      resizable: false,
 
-    frame: false,
-    show: false,
-    backgroundColor: '#e8e4d5',
-    title: 'Configure CAMCAL',
+      frame: false,
+      show: false,
+      backgroundColor: '#e8e4d5',
+      title: 'Configure CAMCAL',
+      icon: file('../src/assets/icons/camcal.ico'),
 
-    webPreferences: {
-      nodeIntegration: true
-    }
-  });
-  config.removeMenu();
-  config.loadFile(file('../src/configure.html'));
-  config.on('ready-to-show', () => config.show());
+      webPreferences: {
+        nodeIntegration: true
+      }
+    });
+    config.removeMenu();
+    config.loadFile(file('../src/configure.html'));
+    config.on('ready-to-show', () => config.show());
+    config.on('close', () => (config = null));
+  }
 }
 module.exports.config = Config;
 
