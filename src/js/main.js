@@ -99,7 +99,7 @@ const app = new Vue({
     handleRotate(e) {
       const dir = e.currentTarget.classList.contains('horiz') ? 'H' : 'V';
       const val = this['rotate' + dir];
-      const nv = val >= 270 ? 0 : val + 90;
+      const nv = val <= 0 ? 270 : val - 90;
       this['rotate' + dir] = nv;
     }
   },

@@ -1,7 +1,7 @@
 {
   "name": "camcal",
   "productName": "CAMCAL Calibration Software",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "XYZ Shifter for sprayer calibration",
   "license": "MIT",
   "homepage": "./",
@@ -30,6 +30,7 @@
   "dependencies": {
     "electron-is-dev": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0",
+    "gulp-cli": "^2.2.0",
     "johnny-five": "^1.1.0",
     "vue": "^2.6.10"
   }
