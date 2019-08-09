@@ -16,12 +16,12 @@ Welcome to CAMCAL (the CAMera CALibrator... it's very clever.) This site contain
 
 ## Contributions/Changes
 
-CAMCAL is an open source project written in Javascript using [Electron](https://electronjs.org/) and [Johnny-Five](https://johnny-five.io/).
+CAMCAL is an open source project written in Javascript using [Electron](https://electronjs.org/) and [Johnny-Five](http://johnny-five.io/).
 
 If you'd like to add features or fix any errors, click the button at the top right of this site to view the code repository. If you aren't familiar with [Git](https://git-scm.org/), you can make changes to the code right at that site&mdash;just click a file and then click the pencil to propose changes.
 
-For any more in depth contributions, see the [contribution guide](contributing)
+For any more in depth changes, see the [contribution guide](contribute).
 
 ## Further Questions
 
-I hope all relevant concerns have been addressed on this site, but just in case, feel free to contact me at camcal@hingobway.me with any other questions.
+I hope all relevant concerns have been addressed on this site, but just in case, feel free to contact me at [camcal@hingobway.me](mailto:camcal@hingobway.me) with any other questions.

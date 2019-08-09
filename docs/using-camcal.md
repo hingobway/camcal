@@ -12,7 +12,7 @@ Also, ensure that the computer you'll be using is turned on. It could be any com
 
 1. Open the CAMCAL Calibration Software. It looks like this:
 
-   ![camcal logo](https://raw.githubusercontent.com/hingobway/camcal/master/src/img/icons/png/64x64.png)
+   ![camcal logo](img/logo.png)
 
 1. Resize the window to your preference. The camera feeds will grow with a larger window size, which may improve visibility and accuracy (you'll probably have to increase both height and width to see a change.)
 
