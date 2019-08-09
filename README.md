@@ -2,4 +2,4 @@
 
 The CAMCAL calibration system.
 
-See https://hingobway.me/camcal/.
+See https://www.hingobway.me/camcal/.
