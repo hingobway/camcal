@@ -2,7 +2,7 @@ const path = require('path');
 const events = require('events');
 const isDev = require('electron-is-dev');
 
-const { BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 
 const file = rel => path.join(__dirname, rel);
 
@@ -61,6 +61,7 @@ if (isDev) {
   );
 } else win.removeMenu();
 win.loadFile(file('../src/main.html'));
+win.on('close', () => app.quit());
 
 // Keep loading screen visible until app is ready AND at least 1.25 seconds have passed (for looks).
 const show = () => {
