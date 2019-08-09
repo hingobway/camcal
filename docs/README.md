@@ -1,54 +1,27 @@
 # CAMCAL Documentation
 
-Welcome to CAMCAL (the CAMera CALibrator... very clever.) This site contains usage information for the software and its corresponding hardware.
+Welcome to CAMCAL (the CAMera CALibrator... it's very clever.) This site contains usage information for the software and its corresponding hardware.
 
-## Getting Acquainted
+## Pages
 
-### The Main Window
+- **[Usage Instructions](using-camcal)** - General instructions for using CAMCAL. Provides some links to sections of the other pages.
+- **[The App](app)** - Using the CAMCAL Software, configuring it, dealing with connection or installation issues, etc.
+- **[The Electronics](electronics)** - Schematics, build instructions, and significant information regarding the motor controller and cameras.
+- **[The Hardware](hardware)** - Explanations, pitfalls, build/fix instructions, and CAD drawings for the physical lift.
 
-![main window](https://i.imgur.com/lQ5eX5t.png)
+### Other important links
 
-This is the main CAMCAL window. Here are the key components:
+- **[Install CAMCAL](app#installing-camcal)** - Installation links and instructions.
+- **[Troubleshooting](app#troubleshooting)** - Solve connection issues, crashing, etc.
 
-1. **[Movement controls](#controlling-movement).** When connected (see [status](#device-statuses)), use these arrow keys to nudge the platform in a given direction. Hold them down to move continuously.
-1. **[The viewer](#the-viewer).** Once a camera is selected (#3), the large brown rectangle will become a live feed of the axis being controlled below it. You can pan and zoom to get the best view possible.
-1. **Device selection.** A place to select what camera to use. Make sure to assign the correct camera to each axis to avoid confusion.
-1. **[Device Status](#device-statuses).** Where to monitor your connection with the system.
+## Contributions/Changes
 
-## Usage
+CAMCAL is an open source project written in Javascript using [Electron](https://electronjs.org/) and [Johnny-Five](https://johnny-five.io/).
 
-### Device Statuses
+If you'd like to add features or fix any errors, click the button at the top right of this site to view the code repository. If you aren't familiar with [Git](https://git-scm.org/), you can make changes to the code right at that site&mdash;just click a file and then click the pencil to propose changes.
 
-![status](https://i.imgur.com/pIQjlL4.png)
+For any more in depth contributions, see the [contribution guide](contributing)
 
-This is where you can keep tabs on the status of the physical hardware. Some statuses are clickable&mdash;those ones are bold.
+## Further Questions
 
-#### The options:
-
-#### ![status click to connect](https://i.imgur.com/0iDCY3F.png)
-
-What you'll see after opening the application. Click to begin the connecting process.
-
-#### ![status connecting](https://i.imgur.com/B9FYCLK.png)
-
-While CAMCAL is attempting to find the connection.
-
-#### ![status connected](https://i.imgur.com/V6Ph7SV.png)
-
-You're connected and all buttons are now enabled (so be careful!)
-
-#### ![status connect timeout](https://i.imgur.com/OSkpH0q.png)
-
-Connection failed. Feel free to try unplugging the USB and plugging it back in, then click on the status to try reconnecting. Need more help? See [troubleshooting](#troubleshooting).
-
-### Controlling Movement
-
-### The Viewer
-
-## Configuration
-
-The app needs some configuration to run. The first time you run the application, it may ask you to configure it first. Any other time, you can reconfigure it by **right-clicking anywhere** in the app and **clicking "🛠 Configure"**.
-
-![to configure](https://i.imgur.com/UrJpJ7H.png)
-
-## Troubleshooting
+I hope all relevant concerns have been addressed on this site, but just in case, feel free to contact me at camcal@hingobway.me with any other questions.
