@@ -57,7 +57,18 @@ Connection failed. Feel free to try unplugging the USB and plugging it back in, 
 
 ### The Viewer
 
--- TODO --
+![the viewer](img/viewer.png)
+
+This is the viewer in CAMCAL. You'll notice there are a few tools available at the bottom&mdash;you can see them by hovering over the viewer. Here are the available features:
+
+1. **Device Selection**.The first thing you'll need to do to use the viewer is select a camera. If you need help with that, [click here](using-camcal#choosing-camera-sources).
+1. **Pan**. Drag around in the viewer to pan around the camera view.
+1. **Zoom**. Drag the slider to zoom in or out.
+1. **Rotate**. Useful if you'd like to use a camera upside down or attached to a wall, click this to rotate the camera in 90&deg; increments.
+
+### Resetting the viewer
+
+If you'd ever like to reset pan, zoom, and rotation for one of the viewers, just **double click the camera feed** to return it to its original location.
 
 ## Configuration
 
@@ -85,7 +96,9 @@ This is usually due to a lack of system resources. It's very simple to fix:
 
 If one of the cameras does not appear in the list, it usually means the computer stopped looking for USB devices.
 
-To fix this, simply locate the black USB hub (pictured), then unplug the 3 USB cables and plug them back in again.
+To fix this, simply locate the black Inland USB hub (pictured), then unplug the 3 USB cables and plug them back in again.
+
+![usb hub](img/usb-hub.png)
 
 Once that is done, restart the CAMCAL software and you should have no more issues.
 
@@ -101,4 +114,6 @@ If you got this error, you haven't properly installed board drivers to your mach
 
 #### "connect timeout"
 
--- TODO --
+If 10 seconds elapse and CAMCAL is still unable to communicate with the controller, it will display this error. First, check to make sure the board is properly plugged in and receiving power. Then, try restarting CAMCAL, and unplugging and plugging back in the controller board.
+
+In rare cases, you might have to restart your computer, or reset the controller. to do this, locate a small circular button next to the USB port on the black side of the controller, and press it, then restart CAMCAL.

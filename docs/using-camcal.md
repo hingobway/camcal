@@ -62,19 +62,33 @@ The cameras are purposefully free-floating (not permanently attached anywhere) s
 
 ### Make use of the software tools
 
-CAMCAL has some helpful camera manipulation tools built in to help you improve the image digitally.
+CAMCAL has some helpful camera manipulation tools built in to help you improve the image digitally. This includes **pan, zoom, and rotation** of each camera feed...
+
+[Read more here.](app#the-viewer)
 
 ### Recommended placements
 
--- TODO --
+Although you're encouraged to try different locations, here are a few that work especially well.
+
+![camera place 1](img/camera1.png)
+
+**POV view from the center clasp.** Line it up to show the end of the needle, and clip the camera handle's lip into the clasp. when you move, the camera will follow the needle instead of the tube.
+
+![camera place 2](img/camera2.png)
+
+**Side view resting on the platform.** Place it upside down on the platform (you'll have to rotate it in the software) to get a great side view. Use the cable to hold it in place, as seen in the image above.
+
+With these two views (after some panning and zooming), you'll get something like this:
+
+![both cameras](img/2-cameras.png)
 
 ### Focusing the cameras
 
 Both cameras are manual focus. Although they have a small aperture (meaning most things should be in focus most of the time), you may sometimes need to change the focus. Luckily, this is very easy.
 
-Simply turn the focus ring (pictured below), the small black wheel around the camera lens, to adjust the focus. When facing the lens head-on, turn it:
+Simply turn the focus ring (pictured below), the small black wheel around the camera lens, to adjust the focus. When **facing the lens head-on**, turn it:
 
-- **clockwise** to bring the focus **closer** to the lens.
-- **counter-clockwise** to bring the focus **further** from the lens.
+- **counter-clockwise** to bring the focus **closer** to the lens.
+- **clockwise** to bring the focus **further** from the lens.
 
 ![focus ring](img/focus.png)
