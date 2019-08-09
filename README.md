@@ -1,3 +1,5 @@
 # camcal
 
-Software component of CAMCAL calibration system.
+The CAMCAL calibration system.
+
+See https://hingobway.me/camcal/.
