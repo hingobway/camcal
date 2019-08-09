@@ -19,11 +19,37 @@ This is the main CAMCAL window. Here are the key components:
 
 ## Installing CAMCAL
 
--- TODO --
+Installing CAMCAL for most users is incredibly easy. CAMCAL is only available in packaged form for windows machines, but you can easily [run it on Mac as well](#running-on-mac).
+
+1. **Download the latest version** - It can be found at the [releases page](https://github.com/hingobway/camcal/releases/latest).
+1. **Run the installer** - it may take a few seconds to appear, but _don't open it a second time._
+1. That's it, except if you're on Windows 7...
 
 ### Windows 7: Board Drivers
 
--- TODO --
+Some Windows 7 machines experience problems finding the drivers for the Arduino. If you discover [this error](#device-or-firmware-error), here's how to fix it.
+
+1. **[Download the drivers](https://drive.google.com/uc?export=download&id=1doBQSsSMOr0zd_82Qdcecboti1V3o3QE)**. You'll have to extract them to a folder. Make sure it's somewhere you won't accidentally delete later.
+1. **Let Windows try to find drivers**. Plug in the board and wait for finding drivers to fail.
+1. Go to _Devices & Printers_, right-click the "Unknown Device" and click Properties.
+1. -- TODO --
+
+### Running on Mac
+
+Although it's not packaged for Mac, you can still run it without issue. You'll need to install [Node.js](https://nodejs.org/en/download) and [Yarn](https://yarnpkg.com/en/docs/install) first.
+
+1. **[Download the source code](https://github.com/hingobway/camcal/releases/latest)**. Extract it to a folder.
+1. **Prepare the code** - Run the following in a terminal in that folder...
+
+   ```sh
+   $ yarn && npx gulp css
+   ```
+
+Now, to run the app, just run the following in the folder (or make a shell script that runs this command):
+
+```sh
+$ yarn start
+```
 
 ## Usage
 
@@ -53,7 +79,7 @@ Connection failed. Feel free to try unplugging the USB and plugging it back in, 
 
 ### Controlling Movement
 
--- TODO --
+See [Moving CAMCAL](using-camcal#moving-camcal).
 
 ### The Viewer
 
@@ -76,7 +102,13 @@ The app needs some configuration to run. The first time you run the application,
 
 ![to configure](img/UrJpJ7H.png)
 
--- TODO Explain config options --
+### The options
+
+![configuration options](img/config.png)
+
+1. **Continuous speed**. The number of steps per second that the motor turns when holding down an arrow key.
+1. **Nudge size**. The number of steps to move when tapping an arrow.
+1. **Motor Pins**. The Arduino pins that the motor is plugged into. If the green wires ever get unplugged, plug them into any port on that side (in order) and type in the numbers of those pins in these boxes. (Although I'd recommend you keep them as is.)
 
 ## Troubleshooting
 

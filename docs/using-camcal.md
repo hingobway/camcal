@@ -92,3 +92,29 @@ Simply turn the focus ring (pictured below), the small black wheel around the ca
 - **clockwise** to bring the focus **further** from the lens.
 
 ![focus ring](img/focus.png)
+
+## Moving CAMCAL
+
+Here we are at the most important part: calibrating. Use the arrow keys on screen to move the platform. Tap an arrow to move the [specified step amount](#configuring-movement), and hold an arrow to move continuously (at the [specified speed](#configuring-movement)). You can also use the arrow keys on the keyboard to do the same.
+
+Any other motions you can do with your hands, but feel free to reference the camera feeds as you move it&mdash;they may be very helpful.
+
+### The Release Button
+
+![release button](img/release.png)
+
+As CAMCAL uses stepper motors, one of the things the motor can do is hold its position very accurately. However, the motor tends to **heat up** while holding position&mdash;not close to dangerously so, but probably not something you'd want to leave on for days at a time. In addition, if temperature is important to the experiment, and there is not an alternate form of cooling, this heat could interfere.
+
+Whenever a motor is holding position as mentioned above, the red RELEASE button will be visible. Click this button at any time to release the motor from holding.
+
+Luckily, CAMCAL can hold position quite well without any motor power, due to the low slope ACME screw and spring underneath the platform. You should have no problems releasing the motor once it's been placed in the correct position.
+
+#### Warning: Restarts!
+
+Beware! If you happen to restart the CAMCAL software, the motors **will continue to hold even after the software is closed**. When restarting the software, the release button will not reappear until you press one of the arrow keys.
+
+If you very much do not want to move the motor or reopen CAMCAL, you can also release the motors by power cycling the power strip inside the chamber.
+
+---
+
+Hopefully all of this information has been helpful! If you didn't find what you were looking for here, please check out [the other pages](./#pages) and see if what you need is hiding somewhere here.
